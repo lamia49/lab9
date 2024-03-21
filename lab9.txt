@@ -1,0 +1,69 @@
+create database StudentsStore;
+ create table Students(
+     id int(10) primary key ,
+     acadmic_id int(10) unique ,
+      name varchar(20) not null ,
+     password varchar(20) not null ,
+     email varchar(30) not null unique ,
+     phone_number int(10) not null unique ,
+     active boolean default true
+);
+
+create table catogary(
+  id int(10) primary key ,
+  name varchar(20) not null ,
+    img varchar(50) not null
+    );
+
+create table proudects
+(
+    id          int(10) primary key,
+    id_catogary int(10),
+    foreign key (id_catogary) references catogary (id),
+    name        varchar(10) not null ,
+    img         varchar(50) ,
+    price       int default 0,
+    stock       int default 0
+);
+
+create table orders(
+id int(10) primary key ,
+ students_id int(10) ,
+ foreign key (students_id) references students(id),
+proudect_id int(10),
+foreign key (proudect_id)references proudects(id),
+ DataOfOrder date ,
+quntity int default 0
+);
+
+insert into students values (11111,11111,'lamia ahmed alyami','98765','lamia@hotmail.com',053876108,false);
+insert into students values (22222,22222,'Nawal ahmed alyami','1010101','nawal@hotmail.com',0539865,true);
+insert into students values (33333,33333,'maria abdularhman','44444','maria@hotmail.com',055096330,true);
+
+select * from students;
+update students set  active=false where id=22222;
+delete from students where id='33333';
+
+insert into catogary values (1,'books','C:\Users\Downloads\latest.png');
+insert into catogary values (2,'School supplies','C:\Users\Downloads\img.png');
+insert into catogary values (3,'technicle sppuret','C:\Users\Downloads\sppurt.png');
+
+select * from catogary;
+update catogary set name='boorow service' where name='School supplies';
+delete from catogary where id='3';
+
+insert into proudects values (1,1,'java','C:\Users\img.png',200,10);
+insert into proudects values (2,1,'python','C:\Users\img.png',250,20);
+insert into proudects values (3,1,'javaScribt','C:\Users\img.png',200,10);
+
+select * from proudects;
+update proudects set price=300 where id='1';
+delete from proudects where id='3';
+
+insert into orders values (1,11111,1,now(),1);
+insert into orders values (2,22222,2,now(),2);
+insert  into orders values (3,22222,2,now(),3);
+
+select *from orders;
+update orders set quntity='1' where id='3';
+delete from orders where id='2';
